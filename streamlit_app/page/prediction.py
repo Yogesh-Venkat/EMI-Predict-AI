@@ -147,7 +147,7 @@ def show_prediction(MODEL_DIR="models"):
                     "High_Risk": "🟠 High Risk"
                 }
                 st.markdown(f"### **EMI Eligibility:** {eligibility_badge.get(clf_pred, clf_pred)}")
-                st.markdown(f"### **Predicted Max EMI:** ₹ {reg_pred:,.2f}")
+                st.markdown(f"### **Predicted Max Monthly EMI:** ₹ {reg_pred:,.2f}")
 
             except FileNotFoundError as e:
                 st.error(f"⚠️ Model or preprocessor file not found: {e}")
