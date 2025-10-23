@@ -1,0 +1,12 @@
+# Streamlit app dependencies
+streamlit==1.31.0
+pandas==2.3.3
+numpy==1.26.4
+matplotlib==3.10.7
+seaborn==0.13.2
+scikit-learn==1.7.2
+joblib==1.5.2
+pillow==10.0.0
+xgboost==3.0.5
+altair==5.5.0
+pyarrow==21.0.0

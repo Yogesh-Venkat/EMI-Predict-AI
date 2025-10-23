@@ -1,0 +1,5 @@
+artifacts/* filter=lfs diff=lfs merge=lfs -text
+data/* filter=lfs diff=lfs merge=lfs -text
+artifacts/feature_eng_part*.csv filter=lfs diff=lfs merge=lfs -text
+artifacts/*.csv filter=lfs diff=lfs merge=lfs -text
+data/*.csv filter=lfs diff=lfs merge=lfs -text

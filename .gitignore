@@ -1,0 +1,76 @@
+# ---- Python cache and build files ----
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.egg
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+
+# ---- Jupyter Notebook checkpoints ----
+.ipynb_checkpoints/
+
+# ---- VS Code files ----
+.vscode/
+.history/
+*.code-workspace
+
+# ---- Logs ----
+logs/
+*.log
+*.tmp
+
+# ---- Project Artifacts ----
+# Keep models, artifacts, and reports for deployment
+# artifacts/
+# models/
+# reports/
+
+# ---- Datasets ----
+# Remove if you want to share dataset; keep ignored if large
+# data/
+# datasets/
+#*.csv
+#*.xlsx
+#*.xls
+*.parquet
+*.json
+
+# ---- Temporary / OS Files ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Environment & Config ----
+.env
+.env.*
+*.ini
+*.cfg
+
+# ---- Cache and profiling ----
+.cache/
+pip-wheel-metadata/
+*.prof
+*.dat
+
+# ---- IDE files ----
+.idea/
+*.iml
+
+# ---- Other generated folders ----
+__temp__/
+temp/
+tmp/
+mlruns/
+mlflow.db
