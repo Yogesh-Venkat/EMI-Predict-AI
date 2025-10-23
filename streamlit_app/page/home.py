@@ -7,8 +7,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 def show_home():
-    st.set_page_config(page_title="EMIPredict AI - Home", layout="wide")
-
     st.title("🏠 EMIPredict AI")
     st.markdown("""
     Welcome to **EMIPredict AI**, your intelligent financial assistant for EMI planning.  
