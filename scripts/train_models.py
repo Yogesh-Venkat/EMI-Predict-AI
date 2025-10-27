@@ -29,8 +29,7 @@ from mlflow.models.signature import infer_signature
 # Paths
 # -----------------------------
 ROOT = Path(__file__).resolve().parents[1]
-FEATURE_FILE1 = ROOT / "artifacts" / "feature_eng_part1.csv"
-FEATURE_FILE2 = ROOT / "artifacts" / "feature_eng_part2.csv"
+FEATURE_FILE = ROOT / "artifacts" / "feature_engineered_EMI_dataset.csv"
 MODEL_DIR = ROOT / "models"
 MODEL_DIR.mkdir(parents=True, exist_ok=True)
 METRICS_DIR = MODEL_DIR / "metrics"
@@ -62,9 +61,7 @@ def classification_metrics(y_true, y_pred):
 # -----------------------------
 def main():
     # Load dataset
-    df1 = pd.read_csv(FEATURE_FILE1)
-    df2 = pd.read_csv(FEATURE_FILE2)
-    df = pd.concat([df1, df2], ignore_index=True)
+    df = pd.read_csv(FEATURE_FILE)
     print(f"✅ Loaded dataset: {df.shape}")
 
     # Targets
@@ -119,19 +116,15 @@ def main():
     # -----------------------------
     # Train-test split
     # -----------------------------
-    Xc_train, Xc_temp, yc_train, yc_temp = train_test_split(
-        X_clf, y_clf, test_size=0.3, random_state=42, stratify=y_clf
-    )
-    Xc_val, Xc_test, yc_val, yc_test = train_test_split(
-        Xc_temp, yc_temp, test_size=0.5, random_state=42, stratify=yc_temp
+    Xc_train, Xc_test, yc_train, yc_test = train_test_split(
+        X_clf, y_clf, test_size=0.2, random_state=42, stratify=y_clf
     )
 
-    Xr_train, Xr_temp, yr_train, yr_temp = train_test_split(
-        X_reg, y_reg, test_size=0.3, random_state=42
+
+    Xr_train, Xr_test, yr_train, yr_test = train_test_split(
+        X_reg, y_reg, test_size=0.2, random_state=42
     )
-    Xr_val, Xr_test, yr_val, yr_test = train_test_split(
-        Xr_temp, yr_temp, test_size=0.5, random_state=42
-    )
+
 
     # -----------------------------
     # Classification models
@@ -149,8 +142,8 @@ def main():
     for name, model in classifiers.items():
         with mlflow.start_run(run_name=f"Classifier_{name}"):
             model.fit(Xc_train, yc_train)
-            y_pred = model.predict(Xc_val)
-            metrics = classification_metrics(yc_val, y_pred)
+            y_pred = model.predict(Xc_test)
+            metrics = classification_metrics(yc_test, y_pred)
 
             # Create input example & signature
             input_example = Xc_train.iloc[:1]
@@ -188,8 +181,8 @@ def main():
     for name, model in regressors.items():
         with mlflow.start_run(run_name=f"Regressor_{name}"):
             model.fit(Xr_train, yr_train.ravel())
-            y_pred = model.predict(Xr_val)
-            metrics = regression_metrics(yr_val.ravel(), y_pred)
+            y_pred = model.predict(Xr_test)
+            metrics = regression_metrics(yr_test.ravel(), y_pred)
 
             # Create input example & signature
             input_example = pd.DataFrame(Xr_train[:1], columns=reg_features)
