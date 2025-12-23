@@ -130,9 +130,13 @@ print("✅ Target scaler saved for max_monthly_emi")
 # -----------------------------
 df[target_class] = y_class_encoded
 df[target_reg] = y_reg_scaled
+midpoint = len(df) // 2
+df_part1 = df.iloc[:midpoint]
+df_part2 = df.iloc[midpoint:]
 
-FEATURE_FILE = OUTPUT_DIR / "feature_engineered_EMI_dataset.csv"
-df.to_csv(FEATURE_FILE, index=False)
+# Save both parts
+df_part1.to_csv(OUTPUT_DIR / "feature_eng_part1.csv", index=False)
+df_part2.to_csv(OUTPUT_DIR / "feature_eng_part2.csv", index=False)
 
-print(f"\n🎯 Feature-engineered dataset saved to: {FEATURE_FILE}")
-print(f"Final shape: {df.shape}")
+print(f"Saved {len(df_part1)} rows to feature_eng_part1.csv")
+print(f"Saved {len(df_part2)} rows to feature_eng_part2.csv")
